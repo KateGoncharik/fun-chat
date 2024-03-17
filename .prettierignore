@@ -1,5 +1,0 @@
-.prettierignore
-dist
-node_modules
-assets
-**/*.js
