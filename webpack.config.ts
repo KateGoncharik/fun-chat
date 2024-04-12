@@ -24,7 +24,7 @@ const getConfig = (mode: WebpackBuildMode, port: number): WebpackConfig => ({
       "src",
       "assets",
       "img",
-      "favicon.png",
+      "favicon.jpg",
     ),
     templatePath: path.join(projectDirname, "src", "index.html"),
     tsConfigPath: path.join(projectDirname, "tsconfig.json"),
