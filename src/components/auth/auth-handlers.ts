@@ -2,7 +2,7 @@ import socket from "@/socket";
 import collectUserData from "../collect-user-data";
 
 export function handleLogout(): void {
-  // get current user data by id
+  // TODO get current user data by id
   socket.send(
     JSON.stringify({
       id: "0",

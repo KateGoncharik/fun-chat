@@ -9,6 +9,12 @@ export default function createNav(): Component {
     text: "ABOUT",
   });
   aboutPageButton.addListener("click", () => handlePathChange("about"));
+  const authPageButton = new Component({
+    tag: "button",
+    className: "auth",
+    text: "AUTH",
+  });
+  authPageButton.addListener("click", () => handlePathChange("auth"));
   const logoutButton = new Component({
     tag: "button",
     className: "logout",
@@ -21,5 +27,6 @@ export default function createNav(): Component {
     { tag: "nav", className: "nav" },
     logoutButton,
     aboutPageButton,
+    authPageButton,
   );
 }

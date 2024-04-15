@@ -7,7 +7,7 @@ export default function startApp(): void {
 
   const infoWrapper = new Component({ className: "info-wrapper" }, createNav());
   const contentWrapper = new Component(
-    { className: "info-wrapper" },
+    { className: "content-wrapper" },
     responseBlock,
   );
   const app = new Component({ className: "app" }, infoWrapper, contentWrapper);

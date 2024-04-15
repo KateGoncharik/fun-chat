@@ -4,8 +4,6 @@ import routes from "./routes";
 export default async function handleRouting(): Promise<void> {
   let location = window.location.pathname.slice(1); // get the url path
 
-  // console.log(location);
-  // if the path length is 0, set it to primary page route
   if (location.length === 0) {
     location = "auth";
     // TODO fix
@@ -17,10 +15,11 @@ export default async function handleRouting(): Promise<void> {
   }
   const { component, title } = route;
   document.title = title;
-  const app = document.querySelector<HTMLElement>(".app");
-  if (!app) {
-    return;
+  const contentWrapper =
+    document.querySelector<HTMLElement>(".content-wrapper");
+  if (!contentWrapper) {
+    throw new Error("Wrapper expected");
   }
-  clearBox(app);
-  app?.appendChild(component.getNode());
+  clearBox(contentWrapper);
+  contentWrapper?.appendChild(component.getNode());
 }
