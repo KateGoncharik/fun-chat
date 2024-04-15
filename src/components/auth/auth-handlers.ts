@@ -22,26 +22,11 @@ export function handleLogout(): void {
       payload: null,
     }),
   );
-  console.log(socket);
 }
 
-export function handleLogin(event: Event): void {
+export function handleLogin(): void {
   const { id, name, password } = collectUserData();
-  console.log(`${id}, ${name}, ${password}`);
-  console.log(event);
-  console.log(
-    "~~~:",
-    JSON.stringify({
-      id,
-      type: "USER_LOGIN",
-      payload: {
-        user: {
-          login: name,
-          password,
-        },
-      },
-    }),
-  );
+
   socket.send(
     JSON.stringify({
       id,

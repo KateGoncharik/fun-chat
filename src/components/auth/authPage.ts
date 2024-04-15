@@ -1,9 +1,9 @@
 import Component from "component";
+import { handleLogin } from "./auth-handlers";
 
 function toggleVisibility(): void {
   const passwordInput =
     document.querySelector<HTMLInputElement>(".password-input");
-  console.log(passwordInput);
   if (passwordInput) {
     passwordInput.type = passwordInput.type === "text" ? "password" : "text";
   }
@@ -46,9 +46,18 @@ function createInputs(): Component[] {
 
 export default function createAuthPage(): Component {
   const fieldSet = new Component({ tag: "fieldset" }, ...createInputs());
+  const loginButton = new Component({
+    tag: "button",
+    className: "login",
+    text: "LOGIN",
+  });
+
+  loginButton.addListener("click", handleLogin);
+
   const authForm = new Component(
     { tag: "form", className: "auth-form" },
     fieldSet,
+    loginButton,
   );
 
   const authPage = new Component(
@@ -57,5 +66,6 @@ export default function createAuthPage(): Component {
     },
     authForm,
   );
+
   return authPage;
 }
