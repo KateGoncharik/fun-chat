@@ -44,7 +44,7 @@ function createInputs(): Component[] {
   return [nameLabel, nameInput, passwordLabel, passwordInput, toggleCheckbox];
 }
 
-export default function createAuthPage(): HTMLElement {
+export default function createAuthPage(): Component {
   const fieldSet = new Component({ tag: "fieldset" }, ...createInputs());
   const authForm = new Component(
     { tag: "form", className: "auth-form" },
@@ -57,5 +57,5 @@ export default function createAuthPage(): HTMLElement {
     },
     authForm,
   );
-  return authPage.getNode();
+  return authPage;
 }

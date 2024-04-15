@@ -1,117 +1,44 @@
 import "./assets/style.css";
-import createAuthPage from "./components/authPage";
+import Component from "component";
+import createAuthPage from "./components/auth/authPage";
+import handleRouting from "./components/routing/routing";
+import { handleLogin, handleLogout } from "./components/auth/auth-handlers";
+import socket from "./socket";
 
-const app = document.createElement("div");
-app.classList.add("app");
+const app = new Component({ className: "app" });
 
-const responseBlock = document.createElement("div");
-responseBlock.classList.add("response-block");
-document.body.appendChild(app);
-const socket = new WebSocket("ws://localhost:4000");
+const responseBlock = new Component({ className: "response-block" });
+document.body.appendChild(app.getNode());
 
 socket.onmessage = (messageEvent: MessageEvent): void => {
-  responseBlock.textContent += messageEvent.data;
+  responseBlock.getNode().textContent += messageEvent.data;
 };
 
-function collectUserData(): UserData {
-  const nameInput = document.querySelector<HTMLInputElement>(".name-input");
-  const userName = nameInput?.value;
-  const passwordInput =
-    document.querySelector<HTMLInputElement>(".password-input");
-  const userPassword = passwordInput?.value;
-  if (!userName || !userPassword) {
-    throw new Error("data expected");
-  }
-  return {
-    id: 0,
-    name: userName,
-    password: userPassword,
-  };
-}
+const loginButton = new Component({
+  tag: "button",
+  className: "login",
+  text: "LOGIN",
+});
 
-export function handleLogin(event: Event): void {
-  const { id, name, password } = collectUserData();
-  console.log(`${id}, ${name}, ${password}`);
-  console.log(event);
-  console.log(
-    "~~~:",
-    JSON.stringify({
-      id,
-      type: "USER_LOGIN",
-      payload: {
-        user: {
-          login: name,
-          password,
-        },
-      },
-    }),
-  );
-  socket.send(
-    JSON.stringify({
-      id,
-      type: "USER_LOGIN",
-      payload: {
-        user: {
-          login: name,
-          password,
-        },
-      },
-    }),
-  );
-  socket.send(
-    JSON.stringify({
-      id: "0",
-      type: "USER_ACTIVE",
-      payload: null,
-    }),
-  );
-  console.log(socket);
-}
+loginButton.addListener("click", handleLogin);
 
-export function handleLogout(event: Event): void {
-  // get current user data by id
-  console.log(event);
-  socket.send(
-    JSON.stringify({
-      id: "0",
-      type: "USER_LOGOUT",
-      payload: {
-        user: {
-          login: "A",
-          password: "1",
-        },
-      },
-    }),
-  );
-  socket.send(
-    JSON.stringify({
-      id: "0",
-      type: "USER_ACTIVE",
-      payload: null,
-    }),
-  );
-  console.log(socket);
-}
+const logoutButton = new Component({
+  tag: "button",
+  className: "logout",
+  text: "LOGOUT",
+});
 
-const loginButton = document.createElement("button");
-loginButton.classList.add("login");
-loginButton.textContent = "LOGIN";
+logoutButton.addListener("click", handleLogout);
 
-loginButton.addEventListener("click", handleLogin);
+const aboutPageButton = new Component({
+  tag: "button",
+  className: "about",
+  text: "ABOUT",
+});
+aboutPageButton.addListener("click", () => handleRouting("about"));
 
-const logoutButton = document.createElement("button");
-logoutButton.classList.add("logout");
-logoutButton.textContent = "LOGOUT";
-logoutButton.addEventListener("click", handleLogout);
-
-app.appendChild(createAuthPage());
-
-app.appendChild(loginButton);
-app.appendChild(logoutButton);
-app.appendChild(responseBlock);
-
-type UserData = {
-  id: number;
-  name: string;
-  password: string;
-};
+app.append(createAuthPage());
+app.append(aboutPageButton);
+app.append(loginButton);
+app.append(logoutButton);
+app.append(responseBlock);
