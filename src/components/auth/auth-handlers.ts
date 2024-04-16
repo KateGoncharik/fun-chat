@@ -1,5 +1,6 @@
 import socket from "@/socket";
 import collectUserData from "../collect-user-data";
+import validateForm from "./validate";
 
 function saveAuthorizedUser(userData: {
   id: string;
@@ -44,6 +45,9 @@ export function handleLogout(): void {
 
 export function handleLogin(event: Event): void {
   event.preventDefault();
+  if (!validateForm()) {
+    return;
+  }
   const { id, login, password } = collectUserData();
   saveAuthorizedUser({ id, login, password });
 
