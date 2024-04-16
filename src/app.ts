@@ -5,7 +5,6 @@ import socket from "./socket";
 
 export function checkAuthorizedUser(): void {
   const savedUser = sessionStorage.getItem("authorized-user");
-  console.log(savedUser);
   if (!savedUser) {
     return;
   }

@@ -1,0 +1,58 @@
+html {
+  font-size: 14px;
+}
+
+:root { 
+  --text: white;
+  --dusty-rose: #db8b87;
+}
+
+
+.app {
+  margin: 0 auto;
+  padding: 2%;
+  background-color: var(--dusty-rose);
+  color: var(--text)
+}
+
+.project-description {
+  padding: 2%;
+  font-size: calc(1vw + 1vh + 2vmin);
+  letter-spacing: 0.4px;
+}
+
+.author-block-wrapper {
+  width: 15em;
+  height: 20em;
+}
+
+.author-block {
+  width: 100%;
+  height: 100%;
+  background-image: url('src/assets/img/kate.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+@media(min-width: 300px){
+  html {
+    font-size: 12px;
+  }
+}
+
+@media(min-width: 600px){
+  html {
+    font-size: 16px;
+  }
+}
+
+
+
+
+@media(min-width: 800px){
+  html {
+    font-size: 20px;
+  }
+}
