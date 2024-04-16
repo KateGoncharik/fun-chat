@@ -1,7 +1,7 @@
 import "./assets/style.css";
 import socket from "./socket";
 import handleRouting from "./components/routing/handle-routing";
-import startApp from "./app";
+import startApp, { checkAuthorizedUser } from "./app";
 
 startApp();
 
@@ -11,5 +11,7 @@ if (responseBlock) {
     responseBlock.textContent += messageEvent.data;
   };
 }
-
 handleRouting();
+socket.onopen = (): void => {
+  checkAuthorizedUser();
+};

@@ -51,7 +51,6 @@ export default function createAuthPage(): Component {
     className: "login",
     text: "LOGIN",
   });
-
   loginButton.addListener("click", handleLogin);
 
   const authForm = new Component(

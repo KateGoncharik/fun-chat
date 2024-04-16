@@ -2,17 +2,16 @@ import clearBox from "@/utils";
 import routes from "./routes";
 
 export default async function handleRouting(): Promise<void> {
-  let location = window.location.pathname.slice(1); // get the url path
-
+  const location = window.location.pathname.slice(1);
   if (location.length === 0) {
-    location = "auth";
-    // TODO fix
+    window.history.pushState(null, "", "auth");
   }
 
   const route = routes[location] || routes["404"];
   if (!route) {
     return;
   }
+
   const { component, title } = route;
   document.title = title;
   const contentWrapper =

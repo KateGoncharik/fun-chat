@@ -1,20 +1,38 @@
 import socket from "@/socket";
 import collectUserData from "../collect-user-data";
 
+function saveAuthorizedUser(userData: {
+  id: string;
+  login: string;
+  password: string;
+}): void {
+  sessionStorage.setItem("authorized-user", JSON.stringify(userData));
+}
+
+function removeAuthorizedUser(): void {
+  sessionStorage.removeItem("authorized-user");
+}
+
 export function handleLogout(): void {
-  // TODO get current user data by id
+  const savedUser = sessionStorage.getItem("authorized-user");
+  if (!savedUser) {
+    return;
+  }
+  const { id, login, password } = JSON.parse(savedUser);
   socket.send(
     JSON.stringify({
-      id: "0",
+      id,
       type: "USER_LOGOUT",
       payload: {
         user: {
-          login: "A",
-          password: "1",
+          login,
+          password,
         },
       },
     }),
   );
+  removeAuthorizedUser();
+
   socket.send(
     JSON.stringify({
       id: "0",
@@ -24,8 +42,10 @@ export function handleLogout(): void {
   );
 }
 
-export function handleLogin(): void {
-  const { id, name, password } = collectUserData();
+export function handleLogin(event: Event): void {
+  event.preventDefault();
+  const { id, login, password } = collectUserData();
+  saveAuthorizedUser({ id, login, password });
 
   socket.send(
     JSON.stringify({
@@ -33,7 +53,7 @@ export function handleLogin(): void {
       type: "USER_LOGIN",
       payload: {
         user: {
-          login: name,
+          login,
           password,
         },
       },
