@@ -1,7 +1,11 @@
 import socket from "@/socket";
+import changeButtonAbility from "@/utils/change-button-ability";
+
 import collectUserData from "../collect-user-data";
 import validateForm from "./validate";
 
+
+// TODO put in LS
 function saveAuthorizedUser(userData: {
   id: string;
   login: string;
@@ -43,15 +47,19 @@ export function handleLogout(): void {
   );
 }
 
-
 export function handleLogin(event: Event): void {
   event.preventDefault();
+
+
   if (!validateForm()) {
+  changeButtonAbility('login', true)
     return;
   }
+  changeButtonAbility('login', false)
+  
+  
   const { id, login, password } = collectUserData();
   saveAuthorizedUser({ id, login, password });
-
 
   socket.send(
     JSON.stringify({
@@ -72,4 +80,14 @@ export function handleLogin(event: Event): void {
       payload: null,
     }),
   );
+}
+
+
+export function handleInputChange():void {
+ 
+  if(validateForm()){
+    changeButtonAbility('login', false)
+  } else{
+    changeButtonAbility('login', true)
+  }
 }

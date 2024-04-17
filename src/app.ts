@@ -2,6 +2,7 @@ import "./assets/style.css";
 import Component from "component";
 import createNav from "./components/nav/nav";
 import socket from "./socket";
+import redirect from "./components/routing/redirect";
 
 export function checkAuthorizedUser(): void {
   const savedUser = sessionStorage.getItem("authorized-user");
@@ -21,6 +22,7 @@ export function checkAuthorizedUser(): void {
       },
     }),
   );
+  redirect()
 }
 
 export default function startApp(): void {
@@ -37,4 +39,5 @@ export default function startApp(): void {
   );
 
   document.body.appendChild(app.getNode());
+
 }

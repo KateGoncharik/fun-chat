@@ -1,16 +1,12 @@
-import clearBox from "@/utils";
 import safeQuerySelector from "@/utils/safe-query-selector";
-
+import clearBox from "@/utils";
 import routes from "./routes";
 
-export default async function handleRouting(): Promise<void> {
-  let location = window.location.pathname.slice(1);
-  if (location.length === 0) {
-    window.history.pushState(null, "", "auth");
-    location = 'auth';
-  }
+export default function redirect(): void {
+  window.history.pushState(null, "", "about");
 
-  const route = routes[location] || routes["404"];
+  
+  const route = routes.about;
   if (!route) {
     return;
   }

@@ -1,11 +1,10 @@
 import Component from "component";
-import { handleLogin } from "./auth-handlers";
 import safeQuerySelector from "@/utils/safe-query-selector";
+import { handleLogin, handleInputChange} from "./auth-handlers";
 
 function toggleVisibility(): void {
-  const passwordInput =
-    safeQuerySelector<HTMLInputElement>(".password-input");
-    passwordInput.type = passwordInput.type === "text" ? "password" : "text";
+  const passwordInput = safeQuerySelector<HTMLInputElement>(".password-input");
+  passwordInput.type = passwordInput.type === "text" ? "password" : "text";
 }
 
 function createInputs(): Component[] {
@@ -28,6 +27,11 @@ function createInputs(): Component[] {
   });
 
   passwordInput.setAttribute("type", "password");
+
+  nameInput.addListener('change', handleInputChange)
+  passwordInput.addListener('change', handleInputChange)
+  
+
   const toggleCheckbox = new Component({
     tag: "input",
     className: "toggle-visibility",
@@ -44,7 +48,7 @@ function createInputs(): Component[] {
 }
 
 export default function createAuthPage(): Component {
-  const fieldSet = new Component({ tag: "fieldset" }, ...createInputs());
+  const fieldSet = new Component({ tag: "fieldset", className: 'fieldset'}, ...createInputs());
   const loginButton = new Component({
     tag: "button",
     className: "login",

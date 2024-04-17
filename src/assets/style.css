@@ -5,6 +5,7 @@ html {
 :root { 
   --text: white;
   --dusty-rose: #db8b87;
+  --disabled-button: #ccc;
 }
 
 
@@ -18,12 +19,23 @@ html {
   justify-content: center;
 }
 
+.nav {
+  margin: 1%;
+  display: flex;
+  justify-content: center;
+}
+
 .auth-form {
   margin: 0 auto;
   width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
 }
 
 .project-description {
@@ -52,12 +64,22 @@ html {
   transition: 1s;
 }
 
+
+
 .login:hover, .logout:hover {
   cursor: pointer;
   background-color: var(--text);
   color: var(--dusty-rose);
   transition: 1s;
 }
+
+.login:disabled, .logout:disabled {
+  background-color: var(--disabled-button);
+  color: #eee;
+  cursor: not-allowed;
+}
+
+
 
 @media(min-width: 300px){
   html {

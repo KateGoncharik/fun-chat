@@ -9,15 +9,16 @@ type UserData = {
 export default function collectUserData(): UserData {
   const nameInput = safeQuerySelector<HTMLInputElement>(".name-input");
   // TODO refactor
-  const userLogin = nameInput.value;
- 
-  const userPassword =  safeQuerySelector<HTMLInputElement>(".password-input").value;
-  if (!userLogin || !userPassword) {
+  const userLoginValue = nameInput.value;
+
+  const userPasswordValue =
+    safeQuerySelector<HTMLInputElement>(".password-input").value;
+  if (!userLoginValue || !userPasswordValue) {
     throw new Error("data expected");
   }
   return {
     id: "0",
-    login: userLogin,
-    password: userPassword,
+    login: userLoginValue,
+    password: userPasswordValue,
   };
 }
