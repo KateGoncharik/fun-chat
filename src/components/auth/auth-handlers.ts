@@ -43,6 +43,7 @@ export function handleLogout(): void {
   );
 }
 
+
 export function handleLogin(event: Event): void {
   event.preventDefault();
   if (!validateForm()) {
@@ -50,6 +51,7 @@ export function handleLogin(event: Event): void {
   }
   const { id, login, password } = collectUserData();
   saveAuthorizedUser({ id, login, password });
+
 
   socket.send(
     JSON.stringify({

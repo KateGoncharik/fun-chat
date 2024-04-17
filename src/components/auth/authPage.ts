@@ -1,12 +1,11 @@
 import Component from "component";
 import { handleLogin } from "./auth-handlers";
+import safeQuerySelector from "@/utils/safe-query-selector";
 
 function toggleVisibility(): void {
   const passwordInput =
-    document.querySelector<HTMLInputElement>(".password-input");
-  if (passwordInput) {
+    safeQuerySelector<HTMLInputElement>(".password-input");
     passwordInput.type = passwordInput.type === "text" ? "password" : "text";
-  }
 }
 
 function createInputs(): Component[] {

@@ -1,3 +1,5 @@
+import safeQuerySelector from "@/utils/safe-query-selector";
+
 type UserData = {
   id: string;
   login: string;
@@ -5,12 +7,11 @@ type UserData = {
 };
 
 export default function collectUserData(): UserData {
-  const nameInput = document.querySelector<HTMLInputElement>(".name-input");
+  const nameInput = safeQuerySelector<HTMLInputElement>(".name-input");
   // TODO refactor
-  const userLogin = nameInput?.value;
-  const passwordInput =
-    document.querySelector<HTMLInputElement>(".password-input");
-  const userPassword = passwordInput?.value;
+  const userLogin = nameInput.value;
+ 
+  const userPassword =  safeQuerySelector<HTMLInputElement>(".password-input").value;
   if (!userLogin || !userPassword) {
     throw new Error("data expected");
   }

@@ -28,11 +28,10 @@ export default function startApp(): void {
     className: "response-block",
   });
 
-  const infoWrapper = new Component({ className: "info-wrapper" }, createNav());
   const contentWrapper = new Component({ className: "content-wrapper" });
   const app = new Component(
     { className: "app" },
-    infoWrapper,
+    createNav(),
     contentWrapper,
     responseBlock,
   );

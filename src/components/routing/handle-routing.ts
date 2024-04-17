@@ -1,5 +1,6 @@
 import clearBox from "@/utils";
 import routes from "./routes";
+import safeQuerySelector from "@/utils/safe-query-selector";
 
 export default async function handleRouting(): Promise<void> {
   const location = window.location.pathname.slice(1);
@@ -15,7 +16,7 @@ export default async function handleRouting(): Promise<void> {
   const { component, title } = route;
   document.title = title;
   const contentWrapper =
-    document.querySelector<HTMLElement>(".content-wrapper");
+    safeQuerySelector<HTMLElement>(".content-wrapper");
   if (!contentWrapper) {
     throw new Error("Wrapper expected");
   }

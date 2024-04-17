@@ -1,10 +1,10 @@
+import safeQuerySelector from "@/utils/safe-query-selector";
+
 export default function validateForm(): boolean {
-  const nameInput = document.querySelector<HTMLInputElement>(".name-input");
+  const nameInput = safeQuerySelector<HTMLInputElement>(".name-input");
   const passwordInput =
-    document.querySelector<HTMLInputElement>(".password-input");
-  if (!nameInput || !passwordInput) {
-    throw new Error("Form expected");
-  }
+    safeQuerySelector<HTMLInputElement>(".password-input");
+ 
   if (nameInput.value && passwordInput.value) {
     return true;
   }
