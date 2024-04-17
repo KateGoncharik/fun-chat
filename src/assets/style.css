@@ -4,6 +4,7 @@ html {
 
 :root { 
   --text: white;
+  --disabled-text: #eee;
   --dusty-rose: #db8b87;
   --disabled-button: #ccc;
 }
@@ -30,7 +31,7 @@ html {
   width: 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
 
 .fieldset {
@@ -75,7 +76,7 @@ html {
 
 .login:disabled, .logout:disabled {
   background-color: var(--disabled-button);
-  color: #eee;
+  color: var(--disabled-text);
   cursor: not-allowed;
 }
 

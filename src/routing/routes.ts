@@ -1,13 +1,15 @@
 import Component from "component";
-import createAuthPage from "../auth/authPage";
-import createAboutPage from "../about/about-page";
+import createAuthPage from "../components/auth/authPage";
+import createAboutPage from "../components/about/about-page";
 
-type Path = {
+export type Path = {
   title: string;
   component: Component;
 };
 
-const routes: { [key: string]: Path } = {
+type Routes = { [key: string]: Path };
+
+const routes: Routes = {
   404: {
     component: new Component({}),
     title: "404",

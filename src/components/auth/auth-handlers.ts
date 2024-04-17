@@ -1,21 +1,33 @@
 import socket from "@/socket";
-import changeButtonAbility from "@/utils/change-button-ability";
-
+import { saveAuthorizedUser, removeAuthorizedUser } from "@/storage";
+import { rename } from "@/routing/rename";
 import collectUserData from "../collect-user-data";
 import validateForm from "./validate";
 
 
-// TODO put in LS
-function saveAuthorizedUser(userData: {
-  id: string;
-  login: string;
-  password: string;
-}): void {
-  sessionStorage.setItem("authorized-user", JSON.stringify(userData));
-}
+export function handleLogin(event: Event): void {
+  event.preventDefault();
 
-function removeAuthorizedUser(): void {
-  sessionStorage.removeItem("authorized-user");
+  if (!validateForm()) {
+    return;
+  }
+
+  const { id, login, password } = collectUserData();
+
+  socket.send(
+    JSON.stringify({
+      id,
+      type: "USER_LOGIN",
+      payload: {
+        user: {
+          login,
+          password,
+        },
+      },
+    }),
+  );
+  saveAuthorizedUser({ id, login, password });
+  rename()
 }
 
 export function handleLogout(): void {
@@ -37,57 +49,4 @@ export function handleLogout(): void {
     }),
   );
   removeAuthorizedUser();
-
-  socket.send(
-    JSON.stringify({
-      id: "0",
-      type: "USER_ACTIVE",
-      payload: null,
-    }),
-  );
-}
-
-export function handleLogin(event: Event): void {
-  event.preventDefault();
-
-
-  if (!validateForm()) {
-  changeButtonAbility('login', true)
-    return;
-  }
-  changeButtonAbility('login', false)
-  
-  
-  const { id, login, password } = collectUserData();
-  saveAuthorizedUser({ id, login, password });
-
-  socket.send(
-    JSON.stringify({
-      id,
-      type: "USER_LOGIN",
-      payload: {
-        user: {
-          login,
-          password,
-        },
-      },
-    }),
-  );
-  socket.send(
-    JSON.stringify({
-      id: "0",
-      type: "USER_ACTIVE",
-      payload: null,
-    }),
-  );
-}
-
-
-export function handleInputChange():void {
- 
-  if(validateForm()){
-    changeButtonAbility('login', false)
-  } else{
-    changeButtonAbility('login', true)
-  }
 }
