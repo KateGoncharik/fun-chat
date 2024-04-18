@@ -4,8 +4,7 @@ import handleRouting from "./routing/handle-routing";
 import startApp from "./app";
 import safeQuerySelector from "./utils/safe-query-selector";
 import loginUser from "./requests/login";
-import  getAuthorisedUser  from "./utils/get-authorised-user";
-
+import getAuthorisedUser from "./utils/get-authorised-user";
 
 startApp();
 
@@ -15,11 +14,9 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
 };
 socket.onopen = (): void => {
   const user = getAuthorisedUser();
-  if(user) {
-    loginUser(user)
+  if (user) {
+    loginUser(user);
   }
 };
 
 handleRouting();
-
-

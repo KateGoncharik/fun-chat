@@ -1,5 +1,5 @@
 import Component from "component";
-import createAuthPage from "../components/auth/authPage";
+import createAuthPage from "../components/auth/auth-page";
 import createAboutPage from "../components/about/about-page";
 
 export type Path = {
