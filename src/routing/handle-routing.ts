@@ -24,7 +24,6 @@ export default async function handleRouting(): Promise<void> {
   const { component, title } = route;
   document.title = title;
   const contentWrapper = safeQuerySelector<HTMLElement>(".content-wrapper");
-  console.log("in handleRouting", contentWrapper);
 
   clearBox(contentWrapper);
   contentWrapper.appendChild(component.getNode());
