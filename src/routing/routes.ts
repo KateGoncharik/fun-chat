@@ -1,3 +1,4 @@
+import createMainPage from "@/components/main/create-main";
 import Component from "component";
 import createAuthPage from "../components/auth/auth-page";
 import createAboutPage from "../components/about/about-page";
@@ -23,7 +24,7 @@ const routes: Routes = {
     title: "About Us",
   },
   main: {
-    component: new Component({}),
+    component: createMainPage(),
     title: "Main",
   },
 };

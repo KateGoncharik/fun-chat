@@ -1,6 +1,7 @@
 import Component from "component";
 import createInputs from "./auth-inputs";
-import  handleLogin  from "./handle-login.ts";
+import handleLogin from "./handle-login.ts";
+import redirectToMain from "@/routing/redirect-to-main";
 
 export default function createAuthPage(): Component {
   const fieldSet = new Component(
@@ -12,7 +13,10 @@ export default function createAuthPage(): Component {
     className: "login",
     text: "LOGIN",
   });
-  loginButton.addListener("click", handleLogin);
+  loginButton.addListener("click", (event)=>{
+    handleLogin(event);
+    redirectToMain()
+  });
 
   const authForm = new Component(
     { tag: "form", className: "auth-form" },

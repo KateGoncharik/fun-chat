@@ -9,11 +9,11 @@ export default async function handleRouting(): Promise<void> {
     window.history.pushState(null, "", "auth");
     location = "auth";
   }
-  if (getAuthorisedUser() && location === 'auth') {
+  if (getAuthorisedUser() && location === "auth") {
     // TODO  change to main later
-    window.history.pushState(null, "", "about");
-    location = "about";
-  } 
+    window.history.pushState(null, "", "main");
+    location = "main";
+  }
 
   const route = routes[location] || routes["404"];
 
