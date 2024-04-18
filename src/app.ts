@@ -1,29 +1,6 @@
 import "./assets/style.css";
 import Component from "component";
 import createNav from "./components/nav/nav";
-import socket from "./socket";
-import handleRouting from "./routing/handle-routing";
-
-export function checkAuthorizedUser(): void {
-  const savedUser = sessionStorage.getItem("authorized-user");
-  if (!savedUser) {
-    return;
-  }
-  const { id, login, password } = JSON.parse(savedUser);
-  socket.send(
-    JSON.stringify({
-      id,
-      type: "USER_LOGIN",
-      payload: {
-        user: {
-          login,
-          password,
-        },
-      },
-    }),
-  );
-  handleRouting("about");
-}
 
 export default function startApp(): void {
   const responseBlock = new Component({

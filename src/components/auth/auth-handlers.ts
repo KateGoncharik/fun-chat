@@ -1,6 +1,7 @@
-import socket from "@/socket";
 import { saveAuthorizedUser, removeAuthorizedUser } from "@/storage";
-import { rename } from "@/routing/rename";
+import redirectToAbout from "@/routing/redirect";
+import loginUser from "@/requests/login";
+import logoutUser from "@/requests/logout";
 import collectUserData from "../collect-user-data";
 import validateForm from "./validate";
 
@@ -12,22 +13,10 @@ export function handleLogin(event: Event): void {
     return;
   }
 
-  const { id, login, password } = collectUserData();
-
-  socket.send(
-    JSON.stringify({
-      id,
-      type: "USER_LOGIN",
-      payload: {
-        user: {
-          login,
-          password,
-        },
-      },
-    }),
-  );
-  saveAuthorizedUser({ id, login, password });
-  rename()
+  const userData = collectUserData();
+  loginUser(userData)
+  saveAuthorizedUser(userData);
+  redirectToAbout();
 }
 
 export function handleLogout(): void {
@@ -35,18 +24,6 @@ export function handleLogout(): void {
   if (!savedUser) {
     return;
   }
-  const { id, login, password } = JSON.parse(savedUser);
-  socket.send(
-    JSON.stringify({
-      id,
-      type: "USER_LOGOUT",
-      payload: {
-        user: {
-          login,
-          password,
-        },
-      },
-    }),
-  );
+  logoutUser(JSON.parse(savedUser))
   removeAuthorizedUser();
 }

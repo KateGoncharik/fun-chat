@@ -1,6 +1,6 @@
 import Component from "component";
 import { handleLogout } from "../auth/auth-handlers";
-import handlePathChange from "../../routing/routing";
+import handlePathChange from "../../routing/handle-path-change";
 
 export default function createNav(): Component {
   const aboutPageButton = new Component({
