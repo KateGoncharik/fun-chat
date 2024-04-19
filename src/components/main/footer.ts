@@ -1,12 +1,21 @@
 import Component from "component";
+import logo from "@/assets/img/logo.jpg";
 
 export default function createFooter(): Component {
   const year = new Component({
     className: "header-title",
-    text: "2024",
+    text: "Created in 2024",
   });
 
-  const logo = new Component({ tag: "img", className: "school-logo" });
-  logo.setAttribute("src", "");
-  return new Component({ tag: "header", className: "main-header" }, year, logo);
+  const logoWrapper = new Component({
+    tag: "img",
+    className: "school-logo",
+  });
+  logoWrapper.setAttribute("src", logo);
+
+  return new Component(
+    { tag: "footer", className: "main-footer" },
+    year,
+    logoWrapper,
+  );
 }

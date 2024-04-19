@@ -2,7 +2,7 @@ html {
   font-size: 14px;
 }
 
-:root { 
+:root {
   --text: white;
   --disabled-text: #eee;
   --dusty-rose: #db8b87;
@@ -80,6 +80,14 @@ html {
   cursor: not-allowed;
 }
 
+
+.school-logo {
+  width: 13%;
+  height: 50px;
+  background-image: url('src/assets/img/logo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 
 @media(min-width: 300px){
