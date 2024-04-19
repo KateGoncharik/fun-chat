@@ -1,5 +1,6 @@
+import type { UserData } from "./types";
+
 function saveAuthorizedUser(userData: {
-  id: string;
   login: string;
   password: string;
 }): void {
@@ -9,5 +10,7 @@ function saveAuthorizedUser(userData: {
 function removeAuthorizedUser(): void {
   sessionStorage.removeItem("authorized-user");
 }
+
+export const activeUsers: UserData[] = [];
 
 export { saveAuthorizedUser, removeAuthorizedUser };

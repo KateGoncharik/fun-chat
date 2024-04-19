@@ -2,10 +2,10 @@ import socket from "@/socket";
 import type { UserData } from "@/types";
 
 export default function loginUser(userData: UserData): void {
-  const { id, login, password } = userData;
+  const { login, password } = userData;
   socket.send(
     JSON.stringify({
-      id,
+      id: "0",
       type: "USER_LOGIN",
       payload: {
         user: {

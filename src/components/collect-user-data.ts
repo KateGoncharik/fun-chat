@@ -1,7 +1,7 @@
 import safeQuerySelector from "@/utils/safe-query-selector";
 
 type UserData = {
-  id: string;
+  // id: string;
   login: string;
   password: string;
 };
@@ -16,7 +16,7 @@ export default function collectUserData(): UserData {
     throw new Error("data expected");
   }
   return {
-    id: "0",
+    // id: "0",
     login: userLoginValue,
     password: userPasswordValue,
   };
