@@ -14,7 +14,6 @@ export default function createNav(): Component {
     text: "AUTH",
   });
   authPageButton.addListener("click", () => goToPath("auth"));
- 
 
   return new Component(
     { tag: "nav", className: "nav" },

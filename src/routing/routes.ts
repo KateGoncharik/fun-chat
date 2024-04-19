@@ -5,26 +5,26 @@ import createAboutPage from "../components/about/about-page";
 
 export type Path = {
   title: string;
-  component: Component;
+  getComponent: () => Component;
 };
 
 type Routes = { [key: string]: Path };
 
 const routes: Routes = {
   404: {
-    component: new Component({}),
+    getComponent: () => new Component({}),
     title: "404",
   },
   auth: {
-    component: createAuthPage(),
+    getComponent: () => createAuthPage(),
     title: "Auth",
   },
   about: {
-    component: createAboutPage(),
+    getComponent: () => createAboutPage(),
     title: "About Us",
   },
   main: {
-    component: createMainPage(),
+    getComponent: () => createMainPage(),
     title: "Main",
   },
 };

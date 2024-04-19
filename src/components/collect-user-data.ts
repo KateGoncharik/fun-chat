@@ -8,7 +8,6 @@ type UserData = {
 
 export default function collectUserData(): UserData {
   const nameInput = safeQuerySelector<HTMLInputElement>(".name-input");
-  // TODO refactor
   const userLoginValue = nameInput.value;
 
   const userPasswordValue =
