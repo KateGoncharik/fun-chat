@@ -5,7 +5,7 @@ export default function loginUser(userData: UserData): void {
   const { login, password } = userData;
   socket.send(
     JSON.stringify({
-      id: "0",
+      id: "login",
       type: "USER_LOGIN",
       payload: {
         user: {

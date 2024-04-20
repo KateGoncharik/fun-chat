@@ -7,6 +7,8 @@ html {
   --disabled-text: #eee;
   --dusty-rose: #db8b87;
   --disabled-button: #ccc;
+  --active-users: #b840053b;
+  --inactive-users: #94593b3b;
 }
 
 
@@ -97,20 +99,30 @@ html {
 
 .active-users {
   margin: 2% 0;
-  width: 100%;
-  height: 200px;
-  background-color: var(--text);
+  width: 30%;
+  min-height: 20px;
+  background-color: var(--active-users);
   border: 1px solid var(--disabled-button);
-  color: #000000;
+  user-select: none;
 }
 
-.active-user {
+.inactive-users {
+  margin: 2% 0;
+  width: 30%;
+  min-height: 20px;
+  background-color: var(--inactive-users);
+  border: 1px solid var(--disabled-button);
+  user-select: none;
+
+}
+
+.active-user,.inactive-user {
   padding: 0 2%;
   border: 1px solid var(--dusty-rose);
   transition: 1s;
 
 }
-.active-user:hover {
+.active-user:hover, .inactive-user:hover {
   background-color: var(--disabled-text);
   cursor: pointer;
   transition: 1s;

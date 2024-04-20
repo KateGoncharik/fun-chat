@@ -6,7 +6,7 @@ export default function logoutUser(userData: UserData): void {
   const { login, password } = userData;
   socket.send(
     JSON.stringify({
-      id: "1",
+      id: "logout",
       type: "USER_LOGOUT",
       payload: {
         user: {

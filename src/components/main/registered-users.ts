@@ -1,21 +1,30 @@
 import Component from "component";
 import type { UserData } from "@/types";
 import safeQuerySelector from "@/utils/safe-query-selector";
-import createActiveUserBlock from "./active-user";
+import createRegisteredUserBlock from "./active-user";
 
-function getUsersBlock(): HTMLElement {
-  return safeQuerySelector(".active-users");
-}
-export function fillRegisteredUsers(data: UserData[]): void {
-  const usersBlock = getUsersBlock();
+export function fillActiveUsers(data: UserData[]): void {
+  const usersBlock = safeQuerySelector(".active-users");
   const savedUser = sessionStorage.getItem("authorized-user");
   if (!savedUser) {
     throw new Error("User expected");
   }
   data.forEach((user) => {
     if (user.login !== JSON.parse(savedUser).login) {
-      usersBlock.appendChild(createActiveUserBlock(user).getNode());
+      const userBlock = createRegisteredUserBlock(user).getNode();
+      userBlock.classList.add("active-user");
+      usersBlock.appendChild(userBlock);
     }
+  });
+}
+
+export function fillInactiveUsers(data: UserData[]): void {
+  const usersBlock = safeQuerySelector(".inactive-users");
+
+  data.forEach((user) => {
+    const userBlock = createRegisteredUserBlock(user).getNode();
+    userBlock.classList.add("inactive-user");
+    usersBlock.appendChild(userBlock);
   });
 }
 
@@ -25,5 +34,10 @@ export default function createRegisteredUsersBlock(): Component {
     text: "Online",
   });
 
-  return new Component({ className: "users" }, activeUsers);
+  const inactiveUsers = new Component({
+    className: "inactive-users",
+    text: "Offline",
+  });
+
+  return new Component({ className: "users" }, activeUsers, inactiveUsers);
 }
