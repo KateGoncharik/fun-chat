@@ -1,4 +1,4 @@
-import "./assets/style.css";
+import "./assets/styles/style.css";
 import { responseIds, routesNames } from "@/constants";
 import socket from "./socket";
 import handleRouting from "./routing/handle-routing";

@@ -1,4 +1,3 @@
-import "./assets/style.css";
 import Component from "component";
 import createNav from "./components/nav/nav";
 
