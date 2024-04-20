@@ -2,6 +2,7 @@ import { saveAuthorizedUser } from "@/storage";
 import loginUser from "@/requests/login";
 import goToPath from "@/routing/handle-path-change";
 import getAllUsers from "@/utils/getAllUsers";
+import { routesNames } from "@/constants";
 import collectUserData from "../collect-user-data";
 import validateForm from "./validate";
 
@@ -15,6 +16,6 @@ export default function handleLogin(event: Event): void {
   const userData = collectUserData();
   loginUser(userData);
   saveAuthorizedUser(userData);
-  goToPath("main");
+  goToPath(routesNames.main);
   getAllUsers();
 }

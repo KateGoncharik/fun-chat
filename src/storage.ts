@@ -11,6 +11,14 @@ function removeAuthorizedUser(): void {
   sessionStorage.removeItem("authorized-user");
 }
 
+function getAuthorizedUser(): UserData | null {
+  const savedUser = sessionStorage.getItem("authorized-user");
+  if (!savedUser) {
+    return null;
+  }
+  return JSON.parse(savedUser);
+}
+
 export const activeUsers: UserData[] = [];
 
-export { saveAuthorizedUser, removeAuthorizedUser };
+export { saveAuthorizedUser, removeAuthorizedUser, getAuthorizedUser };

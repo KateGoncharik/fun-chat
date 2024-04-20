@@ -1,33 +1,36 @@
 import "./assets/style.css";
+import { responseIds, routesNames } from "@/constants";
 import socket from "./socket";
 import handleRouting from "./routing/handle-routing";
 import startApp from "./app";
-import safeQuerySelector from "./utils/safe-query-selector";
 import loginUser from "./requests/login";
-import getAuthorizedUser from "./utils/get-authorised-user";
+import { getAuthorizedUser } from "./storage";
 import {
   fillActiveUsers,
   fillInactiveUsers,
-} from "./components/main/registered-users";
+} from "./components/main/fill-users-block";
 
 import getAllUsers from "./utils/getAllUsers";
 
 startApp();
 
-const responseBlock = safeQuerySelector<HTMLElement>(".response-block");
-
 socket.onmessage = (messageEvent: MessageEvent): void => {
-  responseBlock.textContent += messageEvent.data;
   const messageId = JSON.parse(messageEvent.data).id;
-  if (messageId === null && window.location.pathname.slice(1) === "main") {
+  if (
+    messageId === responseIds.null &&
+    window.location.pathname.slice(1) === routesNames.main
+  ) {
     getAllUsers();
   }
-  if (messageId === "active" && window.location.pathname.slice(1) === "main") {
+  if (
+    messageId === responseIds.active &&
+    window.location.pathname.slice(1) === routesNames.main
+  ) {
     fillActiveUsers(JSON.parse(messageEvent.data).payload.users);
   }
   if (
-    messageId === "inactive" &&
-    window.location.pathname.slice(1) === "main"
+    messageId === responseIds.inactive &&
+    window.location.pathname.slice(1) === routesNames.main
   ) {
     fillInactiveUsers(JSON.parse(messageEvent.data).payload.users);
   }
@@ -37,7 +40,7 @@ socket.onopen = (): void => {
   if (user) {
     loginUser(user);
   }
-  if (window.location.pathname.slice(1) === "main") {
+  if (window.location.pathname.slice(1) === routesNames.main) {
     getAllUsers();
   }
 };
