@@ -12,7 +12,12 @@ export function fillActiveUsers(data: UserData[]): void {
   }
   data.forEach((user) => {
     if (user.login !== JSON.parse(savedUser).login) {
-      const userBlock = createRegisteredUserBlock(user).getNode();
+      const userBlockComponent = createRegisteredUserBlock(user);
+      userBlockComponent
+        .getChildren()
+        .every((userLogin) => userLogin.getNode().classList.add("active"));
+      const userBlock = userBlockComponent.getNode();
+
       userBlock.classList.add("active-user");
       usersBlock.appendChild(userBlock);
     }
@@ -24,7 +29,11 @@ export function fillInactiveUsers(data: UserData[]): void {
   clearBox(usersBlock);
 
   data.forEach((user) => {
-    const userBlock = createRegisteredUserBlock(user).getNode();
+    const userBlockComponent = createRegisteredUserBlock(user);
+    userBlockComponent
+      .getChildren()
+      .every((userLogin) => userLogin.getNode().classList.add("active"));
+    const userBlock = userBlockComponent.getNode();
     userBlock.classList.add("inactive-user");
     usersBlock.appendChild(userBlock);
   });

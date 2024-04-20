@@ -7,7 +7,9 @@ html {
   --disabled-text: #eee;
   --dusty-rose: #db8b87;
   --disabled-button: #ccc;
-  --active-users: #b840053b;
+  --chat: #f17d0f4f;
+  --chat2: #e3b89a;
+  --active-users: #b8400580;
   --inactive-users: #94593b3b;
 }
 
@@ -91,6 +93,27 @@ html {
   background-size: cover;
 }
 
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.chat-wrapper {
+  margin: 2% 0;
+  padding: 1%;
+  display: flex;
+  background-color: var(--chat2);
+  border: 3px solid var(--active-users);
+  box-shadow: inset 2px -6px 10px 5px #0000006b;
+}
+
+.users {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
 .main-footer {
   width: 100%;
   display: flex;
@@ -98,8 +121,8 @@ html {
 }
 
 .active-users {
-  margin: 2% 0;
-  width: 30%;
+  margin-bottom: 2%;
+  padding: 2%;
   min-height: 20px;
   background-color: var(--active-users);
   border: 1px solid var(--disabled-button);
@@ -108,7 +131,7 @@ html {
 
 .inactive-users {
   margin: 2% 0;
-  width: 30%;
+  padding: 2%;
   min-height: 20px;
   background-color: var(--inactive-users);
   border: 1px solid var(--disabled-button);
@@ -120,12 +143,38 @@ html {
   padding: 0 2%;
   border: 1px solid var(--dusty-rose);
   transition: 1s;
-
 }
 .active-user:hover, .inactive-user:hover {
-  background-color: var(--disabled-text);
+  background-color: var(--chat);
   cursor: pointer;
   transition: 1s;
+}
+
+.user-login {
+  height: 100%;
+  margin: 0;
+  padding: 2%;
+}
+
+.dialog-window {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dialog-header {
+  padding: 1% 0;
+  width: 100%;
+ display: flex;
+ justify-content: space-evenly;
+ background-color: var(--chat);
+}
+.online {
+  color: green;
+}
+.offline {
+  color: gray;
 }
 
 @media(min-width: 300px){

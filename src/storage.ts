@@ -19,6 +19,22 @@ function getAuthorizedUser(): UserData | null {
   return JSON.parse(savedUser);
 }
 
-export const activeUsers: UserData[] = [];
+function saveSelectedUserData(login: string, isActive: boolean): void {
+  sessionStorage.setItem("selected-user", `${login} ${isActive}`);
+}
 
-export { saveAuthorizedUser, removeAuthorizedUser, getAuthorizedUser };
+function getSelectedUserData(): string | null {
+  const selectedUser = sessionStorage.getItem("selected-user");
+  if (!selectedUser) {
+    return null;
+  }
+  return selectedUser;
+}
+
+export {
+  saveAuthorizedUser,
+  removeAuthorizedUser,
+  getAuthorizedUser,
+  saveSelectedUserData as saveSelectedUser,
+  getSelectedUserData as getSelectedUser,
+};
