@@ -1,6 +1,6 @@
-import clearBox from "@/utils";
+import clearBox from "@/utils/clear-box";
 import safeQuerySelector from "@/utils/safe-query-selector";
-import getAllUsers from "@/utils/getAllUsers";
+import getAllUsers from "@/utils/get-all-users";
 import { getAuthorizedUser } from "@/storage";
 import { routesNames } from "@/constants";
 import routes from "./routes";

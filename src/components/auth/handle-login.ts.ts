@@ -1,7 +1,7 @@
 import { saveAuthorizedUser } from "@/storage";
 import loginUser from "@/requests/login";
 import goToPath from "@/routing/handle-path-change";
-import getAllUsers from "@/utils/getAllUsers";
+import getAllUsers from "@/utils/get-all-users";
 import { routesNames } from "@/constants";
 import collectUserData from "./collect-user-data";
 import validateForm from "./validate";

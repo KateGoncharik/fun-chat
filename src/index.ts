@@ -9,30 +9,30 @@ import {
   fillActiveUsers,
   fillInactiveUsers,
 } from "./components/main/fill-users-block";
-
-import getAllUsers from "./utils/getAllUsers";
+import isCurrentLocation from "./utils/compare-location";
+import getAllUsers from "./utils/get-all-users";
 
 startApp();
 
 socket.onmessage = (messageEvent: MessageEvent): void => {
-  const messageId = JSON.parse(messageEvent.data).id;
-  if (
-    messageId === responseIds.null &&
-    window.location.pathname.slice(1) === routesNames.main
-  ) {
+  let messageData = messageEvent.data;
+  try {
+    messageData = JSON.parse(messageEvent.data);
+  } catch (err) {
+    console.error(`Error occurred while getting message: ${err}`);
+  }
+  const messageId = messageData.id;
+  if (messageId === responseIds.null && isCurrentLocation(routesNames.main)) {
     getAllUsers();
   }
-  if (
-    messageId === responseIds.active &&
-    window.location.pathname.slice(1) === routesNames.main
-  ) {
+  if (messageId === responseIds.active && isCurrentLocation(routesNames.main)) {
     fillActiveUsers(JSON.parse(messageEvent.data).payload.users);
   }
   if (
     messageId === responseIds.inactive &&
     window.location.pathname.slice(1) === routesNames.main
   ) {
-    fillInactiveUsers(JSON.parse(messageEvent.data).payload.users);
+    fillInactiveUsers(messageData.payload.users);
   }
 };
 socket.onopen = (): void => {
@@ -40,12 +40,12 @@ socket.onopen = (): void => {
   if (user) {
     loginUser(user);
   }
-  if (window.location.pathname.slice(1) === routesNames.main) {
+  if (isCurrentLocation(routesNames.main)) {
     getAllUsers();
   }
 };
 
-handleRouting(); // ?
+handleRouting();
 window.onpopstate = (): void => {
   handleRouting();
 };

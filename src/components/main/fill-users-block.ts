@@ -1,6 +1,6 @@
 import type { UserData } from "@/types";
 import safeQuerySelector from "@/utils/safe-query-selector";
-import clearBox from "@/utils";
+import clearBox from "@/utils/clear-box";
 import createRegisteredUserBlock from "./active-user";
 
 export function fillActiveUsers(data: UserData[]): void {
