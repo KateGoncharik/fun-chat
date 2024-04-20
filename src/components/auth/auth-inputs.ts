@@ -8,7 +8,7 @@ function toggleVisibility(): void {
   passwordInput.type = passwordInput.type === "text" ? "password" : "text";
 }
 
-function handleInputChange(): void {
+function handleInputUpdate(): void {
   if (validateForm()) {
     changeButtonAbility("login", false);
   } else {
@@ -37,8 +37,8 @@ export default function createInputs(): Component[] {
 
   passwordInput.setAttribute("type", "password");
 
-  nameInput.addListener("change", handleInputChange);
-  passwordInput.addListener("change", handleInputChange);
+  nameInput.addListener("input", handleInputUpdate);
+  passwordInput.addListener("input", handleInputUpdate);
 
   const toggleCheckbox = new Component({
     tag: "input",

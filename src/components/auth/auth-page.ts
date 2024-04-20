@@ -4,7 +4,11 @@ import handleLogin from "./handle-login.ts";
 
 export default function createAuthPage(): Component {
   const fieldSet = new Component(
-    { tag: "fieldset", className: "fieldset" },
+    {
+      tag: "fieldset",
+      className: "fieldset",
+      text: "Please fill the form to continue. Login - from 1 to 10 English letters, and password from 4 to 10 English letters",
+    },
     ...createInputs(),
   );
   const loginButton = new Component({
