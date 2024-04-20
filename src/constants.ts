@@ -2,7 +2,7 @@ export const RouteName = {
   Main: "main",
   Auth: "auth",
   About: "about",
-  NotFound: "404",
+  NotFound: "notFound",
 } as const;
 
 export const ResponseId = {
