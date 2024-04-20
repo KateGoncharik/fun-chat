@@ -1,3 +1,4 @@
+import clearBox from "@/utils";
 import Component from "component";
 import type { UserData } from "@/types";
 import safeQuerySelector from "@/utils/safe-query-selector";
@@ -5,6 +6,7 @@ import createRegisteredUserBlock from "./active-user";
 
 export function fillActiveUsers(data: UserData[]): void {
   const usersBlock = safeQuerySelector(".active-users");
+  clearBox(usersBlock);
   const savedUser = sessionStorage.getItem("authorized-user");
   if (!savedUser) {
     throw new Error("User expected");
@@ -20,6 +22,7 @@ export function fillActiveUsers(data: UserData[]): void {
 
 export function fillInactiveUsers(data: UserData[]): void {
   const usersBlock = safeQuerySelector(".inactive-users");
+  clearBox(usersBlock);
 
   data.forEach((user) => {
     const userBlock = createRegisteredUserBlock(user).getNode();

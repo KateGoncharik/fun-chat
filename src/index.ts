@@ -19,9 +19,7 @@ const responseBlock = safeQuerySelector<HTMLElement>(".response-block");
 socket.onmessage = (messageEvent: MessageEvent): void => {
   responseBlock.textContent += messageEvent.data;
   const messageId = JSON.parse(messageEvent.data).id;
-  console.log(`msgId: ${messageId}, loc: ${window.location.pathname}`);
   if (messageId === null && window.location.pathname.slice(1) === "main") {
-    console.log("aaa");
     getAllUsers();
   }
   if (messageId === "active" && window.location.pathname.slice(1) === "main") {
