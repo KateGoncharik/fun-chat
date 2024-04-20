@@ -16,6 +16,8 @@ export default function createAuthPage(): Component {
     className: "login",
     text: "LOGIN",
   });
+  loginButton.setAttribute("type", "submit");
+
   loginButton.addListener("click", (event) => {
     handleLogin(event);
   });
@@ -25,13 +27,15 @@ export default function createAuthPage(): Component {
     fieldSet,
     loginButton,
   );
-
-  const authPage = new Component(
+  window.onkeydown = (e): void => {
+    if (e.code === "Enter") {
+      handleLogin(e);
+    }
+  };
+  return new Component(
     {
       className: "auth-page",
     },
     authForm,
   );
-
-  return authPage;
 }

@@ -23,7 +23,6 @@ export default function createInputs(): Component[] {
   });
   nameInput.setAttribute("type", "text");
   nameInput.setAttribute("name", "name");
-
   const nameLabel = new Component({
     tag: "label",
     className: "name-label",
@@ -34,12 +33,9 @@ export default function createInputs(): Component[] {
     tag: "input",
     className: "password-input",
   });
-
   passwordInput.setAttribute("type", "password");
-
   nameInput.addListener("input", handleInputUpdate);
   passwordInput.addListener("input", handleInputUpdate);
-
   const toggleCheckbox = new Component({
     tag: "input",
     className: "toggle-visibility",
