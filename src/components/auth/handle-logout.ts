@@ -1,7 +1,7 @@
 import logoutUser from "@/requests/logout";
 import { removeAuthorizedUser } from "@/storage";
-import goToPath from "@/routing/handle-path-change";
-import { routesNames } from "@/constants";
+import changePage from "@/routing/change-page";
+import { RouteName } from "@/constants";
 
 export default function handleLogout(): void {
   const savedUser = sessionStorage.getItem("authorized-user");
@@ -10,5 +10,5 @@ export default function handleLogout(): void {
   }
   logoutUser(JSON.parse(savedUser));
   removeAuthorizedUser();
-  goToPath(routesNames.auth);
+  changePage(RouteName.Auth);
 }

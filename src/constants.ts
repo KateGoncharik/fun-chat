@@ -1,13 +1,14 @@
-export const routesNames = {
-  main: "main",
-  auth: "auth",
-  about: "about",
-  404: "404",
-};
-export const responseIds = {
-  login: "login",
-  logout: "logout",
-  active: "active",
-  inactive: "inactive",
-  null: null,
-};
+export const RouteName = {
+  Main: "main",
+  Auth: "auth",
+  About: "about",
+  NotFound: "404",
+} as const;
+
+export const ResponseId = {
+  Login: "login",
+  Logout: "logout",
+  Active: "active",
+  Inactive: "inactive",
+  Null: null,
+} as const;

@@ -2,27 +2,27 @@ import clearBox from "@/utils/clear-box";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import getAllUsers from "@/utils/get-all-users";
 import { getAuthorizedUser } from "@/storage";
-import { routesNames } from "@/constants";
+import { RouteName } from "@/constants";
 import routes from "./routes";
-import goToPath from "./handle-path-change";
+import changePage from "./change-page";
 
 export default async function handleRouting(): Promise<void> {
   let location = window.location.pathname.slice(1);
   if (location.length === 0) {
-    location = routesNames.auth;
-    goToPath(routesNames.auth);
+    location = RouteName.Auth;
+    changePage(RouteName.Auth);
   }
-  if (getAuthorizedUser() && location === routesNames.auth) {
-    location = routesNames.main;
-    goToPath(routesNames.main);
+  if (getAuthorizedUser() && location === RouteName.Auth) {
+    location = RouteName.Main;
+    changePage(RouteName.Main);
     getAllUsers();
   }
 
-  if (!getAuthorizedUser() && location === routesNames.main) {
-    location = routesNames.auth;
-    goToPath(routesNames.auth);
+  if (!getAuthorizedUser() && location === RouteName.Main) {
+    location = RouteName.Auth;
+    changePage(RouteName.Auth);
   }
-  const route = routes[location] || routes[routesNames[404]];
+  const route = routes[location] || routes[RouteName.NotFound];
 
   if (!route) {
     return;

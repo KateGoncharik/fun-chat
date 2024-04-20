@@ -1,5 +1,5 @@
 import "./assets/styles/style.css";
-import { responseIds, routesNames } from "@/constants";
+import { ResponseId, RouteName } from "@/constants";
 import socket from "./socket";
 import handleRouting from "./routing/handle-routing";
 import startApp from "./app";
@@ -22,15 +22,15 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     console.error(`Error occurred while getting message: ${err}`);
   }
   const messageId = messageData.id;
-  if (messageId === responseIds.null && isCurrentLocation(routesNames.main)) {
+  if (messageId === ResponseId.Null && isCurrentLocation(RouteName.Main)) {
     getAllUsers();
   }
-  if (messageId === responseIds.active && isCurrentLocation(routesNames.main)) {
-    fillActiveUsers(JSON.parse(messageEvent.data).payload.users);
+  if (messageId === ResponseId.Active && isCurrentLocation(RouteName.Main)) {
+    fillActiveUsers(messageData.payload.users);
   }
   if (
-    messageId === responseIds.inactive &&
-    window.location.pathname.slice(1) === routesNames.main
+    messageId === ResponseId.Inactive &&
+    window.location.pathname.slice(1) === RouteName.Main
   ) {
     fillInactiveUsers(messageData.payload.users);
   }
@@ -40,7 +40,7 @@ socket.onopen = (): void => {
   if (user) {
     loginUser(user);
   }
-  if (isCurrentLocation(routesNames.main)) {
+  if (isCurrentLocation(RouteName.Main)) {
     getAllUsers();
   }
 };
