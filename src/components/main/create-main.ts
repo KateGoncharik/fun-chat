@@ -1,11 +1,11 @@
 import Component from "component";
 import createHeader from "./header";
 import createFooter from "./footer";
-import createRegisteredUsersBlock from "./registered-users";
+import createAllUsersBlock from "./all-users";
 import createDialogWindow from "./dialog-window";
 
 export default function createMainPage(): Component {
-  const users = createRegisteredUsersBlock();
+  const users = createAllUsersBlock();
   const mainPage = new Component(
     { className: "main-wrapper" },
     createHeader(),

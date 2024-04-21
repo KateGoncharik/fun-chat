@@ -37,5 +37,6 @@ export default function createAuthPage(): Component {
       className: "auth-page",
     },
     authForm,
+    new Component({ className: "errors" }),
   );
 }

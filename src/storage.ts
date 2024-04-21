@@ -35,6 +35,6 @@ export {
   saveAuthorizedUser,
   removeAuthorizedUser,
   getAuthorizedUser,
-  saveSelectedUserData as saveSelectedUser,
-  getSelectedUserData as getSelectedUser,
+  saveSelectedUserData,
+  getSelectedUserData,
 };

@@ -1,7 +1,7 @@
 import type { UserData } from "@/types";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import clearBox from "@/utils/clear-box";
-import createRegisteredUserBlock from "./active-user";
+import createUserBlock from "./user-block";
 
 export function fillActiveUsers(data: UserData[]): void {
   const usersBlock = safeQuerySelector(".active-users");
@@ -12,7 +12,7 @@ export function fillActiveUsers(data: UserData[]): void {
   }
   data.forEach((user) => {
     if (user.login !== JSON.parse(savedUser).login) {
-      const userBlockComponent = createRegisteredUserBlock(user);
+      const userBlockComponent = createUserBlock(user);
       userBlockComponent
         .getChildren()
         .every((userLogin) => userLogin.getNode().classList.add("active"));
@@ -29,7 +29,7 @@ export function fillInactiveUsers(data: UserData[]): void {
   clearBox(usersBlock);
 
   data.forEach((user) => {
-    const userBlockComponent = createRegisteredUserBlock(user);
+    const userBlockComponent = createUserBlock(user);
     userBlockComponent
       .getChildren()
       .every((userLogin) => userLogin.getNode().classList.add("active"));

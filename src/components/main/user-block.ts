@@ -1,10 +1,9 @@
-import { saveSelectedUser } from "@/storage";
+import { saveSelectedUserData } from "@/storage";
 import type { UserData } from "@/types";
 import Component from "component";
+import { updateDialogHeader } from "./dialog-header";
 
-export default function createRegisteredUserBlock({
-  login,
-}: UserData): Component {
+export default function createUserBlock({ login }: UserData): Component {
   const userLogin = new Component({
     tag: "p",
     className: "user-login",
@@ -16,12 +15,12 @@ export default function createRegisteredUserBlock({
       throw new Error("Target expected");
     }
     if (event.target instanceof HTMLElement) {
-      saveSelectedUser(
+      saveSelectedUserData(
         event.target.textContent!,
         event.target.classList.contains("active"),
       );
     }
-    // TODO update header and dialog
+    updateDialogHeader();
   });
   return userBlock;
 }

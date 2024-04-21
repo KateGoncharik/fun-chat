@@ -1,10 +1,11 @@
+import safeQuerySelector from "@/utils/safe-query-selector";
 import "./assets/styles/style.css";
 import { ResponseId, RouteName } from "@/constants";
 import socket from "./socket";
 import handleRouting from "./routing/handle-routing";
 import startApp from "./app";
 import loginUser from "./requests/login";
-import { getAuthorizedUser, getSelectedUser } from "./storage";
+import { getAuthorizedUser, getSelectedUserData } from "./storage";
 import {
   fillActiveUsers,
   fillInactiveUsers,
@@ -13,6 +14,9 @@ import isCurrentLocation from "./utils/compare-location";
 import getAllUsers from "./utils/get-all-users";
 import { updateSelectedUserStatus } from "./components/main/dialog-header";
 import type { UserData } from "./types";
+import changePage from "./routing/change-page";
+import getDialogHistory from "./requests/get-history";
+import { fillDialogHistory } from "./components/main/dialog-history-box";
 
 startApp();
 
@@ -25,7 +29,7 @@ type Response = {
 function handleActiveUsersOnMainUpdate(messageData: Response): void {
   const { users } = messageData.payload;
   fillActiveUsers(users);
-  const selectedUserData = getSelectedUser();
+  const selectedUserData = getSelectedUserData();
   if (!selectedUserData) {
     return;
   }
@@ -41,7 +45,7 @@ function handleActiveUsersOnMainUpdate(messageData: Response): void {
 function handleInactiveUsersOnMainUpdate(messageData: Response): void {
   const { users } = messageData.payload;
   fillInactiveUsers(users);
-  const selectedUserData = getSelectedUser();
+  const selectedUserData = getSelectedUserData();
   if (!selectedUserData) {
     return;
   }
@@ -62,6 +66,19 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     throw new Error("Message data expected");
   }
   const messageId = messageData.id;
+  if (
+    messageId === ResponseId.Login &&
+    messageData.payload.error &&
+    isCurrentLocation(RouteName.Auth)
+  ) {
+    safeQuerySelector(".errors").innerHTML = messageData.payload.error;
+    return;
+  }
+  if (messageId === ResponseId.Login) {
+    changePage(RouteName.Main);
+    getAllUsers();
+  }
+
   if (messageId === ResponseId.Null && isCurrentLocation(RouteName.Main)) {
     getAllUsers();
   }
@@ -73,6 +90,12 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
   ) {
     handleInactiveUsersOnMainUpdate(messageData);
   }
+  if (messageId === "send-message") {
+    getDialogHistory(messageData.payload.message.to);
+  }
+  if (messageId === "history") {
+    fillDialogHistory(messageData);
+  }
 };
 
 socket.onopen = (): void => {
@@ -82,6 +105,15 @@ socket.onopen = (): void => {
   }
   if (isCurrentLocation(RouteName.Main)) {
     getAllUsers();
+    const selectedUserData = getSelectedUserData();
+    if (!selectedUserData) {
+      return;
+    }
+    const [login] = selectedUserData.split(" ");
+    if (login) {
+      getDialogHistory(login);
+      console.log("AA");
+    }
   }
 };
 
