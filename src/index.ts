@@ -112,7 +112,6 @@ socket.onopen = (): void => {
     const [login] = selectedUserData.split(" ");
     if (login) {
       getDialogHistory(login);
-      console.log("AA");
     }
   }
 };
