@@ -63,7 +63,9 @@ function handleInactiveUsersOnMainUpdate(messageData: Response): void {
 function rename(receiver?: string): void {
   getAllUsers();
   if (receiver) {
-    updateDialogHistory(receiver);
+    if (getSelectedUserData()) {
+      updateDialogHistory(receiver);
+    }
   }
 }
 

@@ -27,7 +27,6 @@ export default function dialogCraftMessageBlock(): Component {
 
   const userData = getSelectedUserData();
   if (userData) {
-    console.log("WORKED");
     const [login] = userData.split(" ");
     if (!login) {
       throw new Error("Login expected");
