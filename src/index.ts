@@ -82,7 +82,9 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     getAllUsers();
   }
   if (messageId === ResponseId.Null && isCurrentLocation(RouteName.Main)) {
-    if (messageData.payload.message?.from) {
+    if (
+      messageData.payload.message?.from === getSelectedUserData()?.split(" ")[0]
+    ) {
       rename(messageData.payload.message.from);
     } else {
       rename();
@@ -92,7 +94,7 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     handleActiveUsersOnMainUpdate(messageData);
   } else if (
     messageId === ResponseId.Inactive &&
-    window.location.pathname.slice(1) === RouteName.Main
+    isCurrentLocation(RouteName.Main)
   ) {
     handleInactiveUsersOnMainUpdate(messageData);
   }
@@ -106,7 +108,6 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     fillDialogHistory(messageData);
   }
 };
-
 socket.onopen = (): void => {
   const user = getAuthorizedUser();
   if (user) {
