@@ -48,7 +48,6 @@ type MessageSendResponse = {
 };
 
 export function fillDialogHistory(response: HistoryResponse): void {
-  // console.log("Called fill history", response);
   const dialogHistoryBox = safeQuerySelector(".dialog-history-box");
   clearBox(dialogHistoryBox);
   const { messages } = response.payload;
@@ -72,8 +71,6 @@ export function fillDialogHistory(response: HistoryResponse): void {
 export function updateDialogHistory(receiver?: string): void {
   const selected = getSelectedUserData();
   if (!selected) {
-    // console.log("Here");
-    // return;
     throw new Error("No user selected");
   }
   const login = selected.split(" ")[0];
@@ -81,10 +78,8 @@ export function updateDialogHistory(receiver?: string): void {
     throw new Error("Invalid data");
   }
   if (receiver) {
-    // console.log("called updDialogHistory with receiver:", receiver);
     getDialogHistory(receiver);
   } else {
-    // console.log("called updDialogHistory without receiver:", receiver);
     getDialogHistory(login);
   }
 }

@@ -2,7 +2,10 @@ import { saveSelectedUserData } from "@/storage";
 import type { UserData } from "@/types";
 import Component from "component";
 import { updateDialogHeader } from "./dialog-header";
-import { updateCraftMessageBox } from "./dialog-craft-message-block";
+import {
+  updateCraftMessageBox,
+  clearInput,
+} from "./dialog-craft-message-block";
 import { updateDialogHistory } from "./dialog-history-box";
 
 export default function createUserBlock({ login }: UserData): Component {
@@ -23,10 +26,10 @@ export default function createUserBlock({ login }: UserData): Component {
       event.target.textContent!,
       event.target.classList.contains("active"),
     );
-    // here works always
     updateDialogHeader();
     updateDialogHistory();
     updateCraftMessageBox();
+    clearInput();
   });
   return userBlock;
 }

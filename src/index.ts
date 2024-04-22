@@ -1,4 +1,3 @@
-// import safeQuerySelector from "@/utils/safe-query-selector";
 import "./assets/styles/style.css";
 import { ResponseId, RouteName } from "@/constants";
 import socket from "./socket";
@@ -62,7 +61,6 @@ function handleInactiveUsersOnMainUpdate(messageData: Response): void {
 }
 
 function rename(receiver?: string): void {
-  // console.log("called, receiver:", receiver);
   getAllUsers();
   if (receiver) {
     updateDialogHistory(receiver);
@@ -103,11 +101,9 @@ socket.onmessage = (messageEvent: MessageEvent): void => {
     updateDialogHistory();
   }
   if (messageId === "history") {
-    console.log("we got history for some guy ", messageData);
     fillDialogHistory(messageData);
   }
 };
-// type "MSG_FROM_USER" = 'history' id
 
 socket.onopen = (): void => {
   const user = getAuthorizedUser();
@@ -118,12 +114,10 @@ socket.onopen = (): void => {
     getAllUsers();
     const selectedUserData = getSelectedUserData();
     if (!selectedUserData) {
-      console.log("AAA");
       return;
     }
     const [login] = selectedUserData.split(" ");
     if (login) {
-      // console.log("We get history on main when somebody is selected");
       getDialogHistory(login);
     }
   }
