@@ -1,4 +1,5 @@
 import Component from "component";
+import isCurrentLocation from "@/utils/compare-location";
 import createInputs from "./auth-inputs";
 import handleLogin from "./handle-login.ts";
 
@@ -28,7 +29,7 @@ export default function createAuthPage(): Component {
     loginButton,
   );
   window.onkeydown = (e): void => {
-    if (e.code === "Enter") {
+    if (e.code === "Enter" && isCurrentLocation("auth")) {
       handleLogin(e);
     }
   };

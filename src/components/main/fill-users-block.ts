@@ -32,7 +32,7 @@ export function fillInactiveUsers(data: UserData[]): void {
     const userBlockComponent = createUserBlock(user);
     userBlockComponent
       .getChildren()
-      .every((userLogin) => userLogin.getNode().classList.add("active"));
+      .every((userLogin) => userLogin.getNode().classList.add("inactive"));
     const userBlock = userBlockComponent.getNode();
     userBlock.classList.add("inactive-user");
     usersBlock.appendChild(userBlock);

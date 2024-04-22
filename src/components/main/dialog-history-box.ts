@@ -2,16 +2,27 @@ import { getSelectedUserData } from "@/storage";
 import safeQuerySelector from "@/utils/safe-query-selector";
 import Component from "component";
 import clearBox from "@/utils/clear-box";
+import getDialogHistory from "@/requests/get-history";
 import messageBox from "./message";
 
 export default function createDialogHistory(): Component {
   const userData = getSelectedUserData();
   if (!userData) {
-    return new Component({ className: "dialog-history-box" });
+    return new Component(
+      {
+        className: "dialog-history-box",
+      },
+      new Component({
+        tag: "h3",
+        className: "no-user-selected-title",
+        text: "No user selected. Choose anybody from the left bar.",
+      }),
+    );
   }
 
   return new Component({
     className: "dialog-history-box",
+    text: "Start this conversation!",
   });
 }
 
@@ -37,14 +48,43 @@ type MessageSendResponse = {
 };
 
 export function fillDialogHistory(response: HistoryResponse): void {
+  // console.log("Called fill history", response);
   const dialogHistoryBox = safeQuerySelector(".dialog-history-box");
   clearBox(dialogHistoryBox);
-  const savedUser = sessionStorage.getItem("authorized-user");
-  if (!savedUser) {
-    throw new Error("User expected");
-  }
   const { messages } = response.payload;
-  messages.forEach((message) => {
-    dialogHistoryBox.appendChild(messageBox(message).getNode());
-  });
+  if (messages && messages.length) {
+    messages.forEach((message) => {
+      dialogHistoryBox.appendChild(messageBox(message).getNode());
+    });
+  } else {
+    dialogHistoryBox.appendChild(
+      new Component({
+        tag: "h3",
+        className: "no-message-history-title",
+        text: "Start this conversation!",
+      }).getNode(),
+    );
+  }
+  const { scrollHeight } = dialogHistoryBox;
+  dialogHistoryBox.scrollTop = scrollHeight;
+}
+// TODO remove receiver
+export function updateDialogHistory(receiver?: string): void {
+  const selected = getSelectedUserData();
+  if (!selected) {
+    // console.log("Here");
+    // return;
+    throw new Error("No user selected");
+  }
+  const login = selected.split(" ")[0];
+  if (!login) {
+    throw new Error("Invalid data");
+  }
+  if (receiver) {
+    // console.log("called updDialogHistory with receiver:", receiver);
+    getDialogHistory(receiver);
+  } else {
+    // console.log("called updDialogHistory without receiver:", receiver);
+    getDialogHistory(login);
+  }
 }

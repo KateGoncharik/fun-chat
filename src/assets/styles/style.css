@@ -189,9 +189,16 @@ html {
   height: 50vh;
   width: 95%;
   background-color: var(--chat3);
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
+}
+
+
+.no-message-history-title, .no-user-selected-title {
+  text-align: center;
+  color: var(--active-users);
+  font-size: 1.4em;
 }
 
 .dialog-craft-message-box {
@@ -220,6 +227,7 @@ html {
 .message-box {
   margin: 2%;
   padding: 2%;
+width: 50%;
   height: 80px;
   background-color: var(--chat);
   display: flex;
@@ -237,10 +245,12 @@ html {
 }
 
 .mine {
+  align-self: flex-end;
   text-align: right;
 }
 
 .him {
+  align-self: flex-start;
   text-align: left;
 
 }

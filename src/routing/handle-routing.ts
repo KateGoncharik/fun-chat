@@ -3,6 +3,7 @@ import safeQuerySelector from "@/utils/safe-query-selector";
 import getAllUsers from "@/utils/get-all-users";
 import { getAuthorizedUser } from "@/storage";
 import { RouteName } from "@/constants";
+import { updateDialogHistory } from "@/components/main/dialog-history-box";
 import routes from "./routes";
 import changePage from "./change-page";
 
@@ -16,6 +17,7 @@ export default async function handleRouting(): Promise<void> {
     location = RouteName.Main;
     changePage(RouteName.Main);
     getAllUsers();
+    updateDialogHistory();
   }
 
   if (!getAuthorizedUser() && location === RouteName.Main) {

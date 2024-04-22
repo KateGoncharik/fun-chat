@@ -12,6 +12,7 @@ export default function handleLogin(event: Event): void {
   }
 
   const userData = collectUserData();
-  loginUser(userData);
   saveAuthorizedUser(userData);
+
+  loginUser(userData);
 }
