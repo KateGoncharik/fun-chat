@@ -67,7 +67,6 @@ export function fillDialogHistory(response: HistoryResponse): void {
   const { scrollHeight } = dialogHistoryBox;
   dialogHistoryBox.scrollTop = scrollHeight;
 }
-// TODO remove receiver
 export function updateDialogHistory(receiver?: string): void {
   const selected = getSelectedUserData();
   if (!selected) {
